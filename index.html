@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUSS: Structured Uncertainty Similarity Score</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Authors Section */
+        .authors-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .authors {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .author a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .author a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .author .affiliation {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Buttons Section */
+        .buttons-section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-paper {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .btn-paper:hover {
+            background-color: #b91c1c;
+        }
+
+        .btn-code {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        .btn-code:hover {
+            background-color: #111827;
+        }
+
+        .btn-checkpoints {
+            background-color: #059669;
+            color: white;
+        }
+
+        .btn-checkpoints:hover {
+            background-color: #047857;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        /* Abstract */
+        .abstract-content {
+            background-color: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #2563eb;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        /* Methods */
+        .methods-content {
+            text-align: center;
+        }
+
+        .methods-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .figure-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .figure-placeholder {
+            background-color: #e5e7eb;
+            padding: 80px 40px;
+            border-radius: 8px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .figure-caption {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .figure-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .result-item .figure-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Interpretability Results */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-item h3 {
+            font-size: 1.1rem;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #1f2937;
+            color: #9ca3af;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .authors {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .buttons-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Title Section -->
+        <div class="title-section">
+            <h1>Structured Uncertainty Similarity Score (SUSS)</h1>
+            <p class="subtitle">A Novel Metric for Evaluating Uncertainty in Machine Learning</p>
+        </div>
+
+        <!-- Authors Section -->
+        <div class="authors-section">
+            <div class="authors">
+                <div class="author">
+                    <a href="#">Author Name 1</a>
+                    <span class="affiliation">University/Institution 1</span>
+                </div>
+                <div class="author">
+                    <a href="#">Author Name 2</a>
+                    <span class="affiliation">University/Institution 2</span>
+                </div>
+                <div class="author">
+                    <a href="#">Author Name 3</a>
+                    <span class="affiliation">University/Institution 3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="buttons-section">
+            <a href="#" class="btn btn-paper" aria-label="View Paper">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                Paper
+            </a>
+            <a href="#" class="btn btn-code" aria-label="View Code on GitHub">
+                <i class="fab fa-github" aria-hidden="true"></i>
+                Code
+            </a>
+            <a href="#" class="btn btn-checkpoints" aria-label="Download Checkpoints">
+                <i class="fas fa-download" aria-hidden="true"></i>
+                Checkpoints
+            </a>
+        </div>
+
+        <!-- Abstract Section -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-content">
+                <p>
+                    [Your abstract goes here. This is a placeholder text for the abstract of your paper. 
+                    The abstract should provide a concise summary of the research, including the problem 
+                    being addressed, the methodology used, key findings, and the significance of the results. 
+                    Replace this text with the actual abstract from your paper.]
+                </p>
+            </div>
+        </section>
+
+        <!-- Methods Section -->
+        <section id="methods">
+            <h2>Methods</h2>
+            <div class="methods-content">
+                <p>
+                    [Your methods description goes here. Provide an overview of the methodology used in your 
+                    research. Explain the key components of the Structured Uncertainty Similarity Score (SUSS) 
+                    and how it is computed. Replace this text with the actual methods description from your paper.]
+                </p>
+                
+                <div class="figure-container">
+                    <div class="figure-placeholder">
+                        <i class="fas fa-image" aria-hidden="true"></i>
+                        [Methods Figure Placeholder]<br>
+                        Replace with your methods figure (e.g., images/methods.png)
+                    </div>
+                    <p class="figure-caption">Figure 1: Overview of the SUSS methodology.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interpretability Results Section -->
+        <section id="results">
+            <h2>Interpretability Results</h2>
+            <p>
+                [Description of interpretability results goes here. Explain what insights your method provides 
+                and how the results can be interpreted.]
+            </p>
+            
+            <div class="results-grid">
+                <div class="result-item">
+                    <h3>Result 1</h3>
+                    <div class="figure-container">
+                        <div class="figure-placeholder">
+                            <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                            [Figure Placeholder]<br>
+                            Replace with result figure
+                        </div>
+                        <p class="figure-caption">Figure 2: [Caption for result 1]</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>Result 2</h3>
+                    <div class="figure-container">
+                        <div class="figure-placeholder">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i>
+                            [Figure Placeholder]<br>
+                            Replace with result figure
+                        </div>
+                        <p class="figure-caption">Figure 3: [Caption for result 2]</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>Result 3</h3>
+                    <div class="figure-container">
+                        <div class="figure-placeholder">
+                            <i class="fas fa-project-diagram" aria-hidden="true"></i>
+                            [Figure Placeholder]<br>
+                            Replace with result figure
+                        </div>
+                        <p class="figure-caption">Figure 4: [Caption for result 3]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            &copy; 2024 SUSS Authors. 
+            <br>
+            If you find this work useful, please cite our paper.
+        </p>
+    </footer>
+</body>
+</html>
