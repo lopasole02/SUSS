@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Structured Uncertainty Similarity Score (SUSS)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      background: #fff;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .authors {
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    .authors a {
+      text-decoration: none;
+      color: #0066cc;
+    }
+
+    .authors a:hover {
+      text-decoration: underline;
+    }
+
+    .button-row {
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .button-row a {
+      display: inline-block;
+      margin: 4px 8px;
+      padding: 10px 18px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      background: #f0f0f0;
+      color: #222;
+    }
+
+    .button-row a:hover {
+      background: #e3e3e3;
+    }
+
+    section {
+      margin-bottom: 32px;
+    }
+
+    section h2 {
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    .figure {
+      margin: 16px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .figure img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .result-card {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 12px;
+      background: #fafafa;
+    }
+
+    .result-card h3 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 0.8rem;
+      text-align: center;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Structured Uncertainty Similarity Score (SUSS): Learning a Probabilistic,
+Interpretable, Perceptual Metric Between Images</h1>
+      <div class="subtitle">
+        Project page for the paper on interpretable structured uncertainty-aware perceptual similarity score.
+      </div>
+
+      <div class="authors">
+        <a href="#TODO-author1">Paula Seidler</a>,
+        <a href="#TODO-author2">Neill D. F. Campbell</a>,
+        <a href="#TODO-author3">Ivor J A Simpson</a>
+      </div>
+    </header>
+
+    <!-- Main buttons -->
+    <div class="button-row">
+      <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener noreferrer">Paper</a>
+      <a href="https://github.com/yourusername/suss" target="_blank" rel="noopener noreferrer">Code</a>
+      <a href="#checkpoints">Checkpoints</a>
+      <a href="#usage-examples">Usage Examples</a>
+    </div>
+
+    <!-- Abstract -->
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        Perceptual similarity scores that align with human vision are critical for both training and evaluating computer vision models. Deep perceptual losses, such as LPIPS,
+        achieve good alignment but rely on complex, highly non-linear discriminative features with unknown invariances, while hand-crafted measures like SSIM are interpretable but miss key perceptual properties.
+      </p>
+      <p>
+        We introduce the <strong>Structured Uncertainty Similarity Score (SUSS)</strong>; it models each image through a set of perceptual components, each represented by a structured multivariate Normal distribution. These are trained in a generative, self-supervised manner to assign high likelihood to human-imperceptible augmentations. The final score is a weighted sum of component log-probabilities with weights learned from human perceptual datasets. 
+        Unlike feature-based methods, SUSS learns image-specific linear transformations of residuals in pixel space, enabling transparent inspection through decorrelated residuals and sampling.
+      </p>
+      <p>
+        SUSS aligns closely with human perceptual judgments, shows strong perceptual calibration across diverse distortion types, and provides localized, interpretable explanations of its similarity assessments. 
+        We further demonstrate stable optimization behavior and competitive performance when using SUSS as a perceptual loss for downstream imaging tasks.
+      </p>
+    </section>
+
+    <!-- Methods -->
+    <section id="methods">
+      <h2>Methods</h2>
+      <p>TODO</p>
+
+      <div class="figure">
+        <img src="figures/suss_pipeline.png" alt="Overview of the SUSS method pipeline" />
+        <div>Figure 1: TODO</div>
+      </div>
+    </section>
+
+    <!-- Usage Examples -->
+    <section id="usage-examples">
+      <h2>Usage Examples</h2>
+      <p>TODO</p>
+
+      <pre><code>TODO</code></pre>
+    </section>
+
+    <!-- Checkpoints -->
+    <section id="checkpoints">
+      <h2>Checkpoints</h2>
+      <p>TODO</p>
+      <ul>
+        <li>TODO</li>
+        <li>TODO</li>
+        <li>TODO</li>
+      </ul>
+    </section>
+
+    <!-- Interpretability / Results -->
+    <section id="interpretability">
+      <h2>Interpretability &amp; Results</h2>
+      <p>TODO</p>
+
+      <div class="results-grid">
+        <div class="result-card">
+          <h3>TODO</h3>
+          <div class="figure">
+            <img src="figures/placeholder.png" alt="TODO" />
+          </div>
+          <p>TODO</p>
+        </div>
+
+        <div class="result-card">
+          <h3>TODO</h3>
+          <div class="figure">
+            <img src="figures/placeholder.png" alt="TODO" />
+          </div>
+          <p>TODO</p>
+        </div>
+
+        <div class="result-card">
+          <h3>TODO</h3>
+          <div class="figure">
+            <img src="figures/placeholder.png" alt="TODO" />
+          </div>
+          <p>TODO</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      SUSS project page &middot; Last updated: TODO
+    </footer>
+  </div>
+</body>
+</html>
