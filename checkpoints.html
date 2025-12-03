@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUSS Checkpoints</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f8faf6;
+      --panel: #ffffff;
+      --surface: #fbfbf9;
+      --border: #dfe7de;
+      --accent: #1f5b3a;
+      --accent-soft: #2f7a4f;
+      --accent-warm: #f3a76b;
+      --muted: #425240;
+      --text: #111;
+      --shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: radial-gradient(circle at 15% 18%, rgba(31, 91, 58, 0.14), transparent 34%),
+                  radial-gradient(circle at 72% 12%, rgba(243, 167, 107, 0.12), transparent 34%),
+                  radial-gradient(circle at 85% 6%, rgba(47, 122, 79, 0.12), transparent 32%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 22px 72px;
+    }
+
+    header {
+      margin-bottom: 28px;
+      padding: 24px 22px;
+      background: #ffffff;
+      border: 2px solid var(--accent-warm);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 36px);
+      letter-spacing: -0.01em;
+    }
+
+    .back-link a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.08), rgba(47, 122, 79, 0.1));
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+
+    .back-link a:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-soft);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.12), rgba(47, 122, 79, 0.12));
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .weights {
+      background: #f3f5ef;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 1rem;
+      color: #111;
+      overflow-x: auto;
+    }
+
+    .links {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--accent-warm);
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.08), rgba(243, 167, 107, 0.12));
+      transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+      font-weight: 600;
+    }
+
+    .links a:hover {
+      border-color: var(--accent-warm);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.12), rgba(243, 167, 107, 0.16));
+      transform: translateY(-1px);
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>SUSS Checkpoints</h1>
+      <div class="back-link"><a href="index.html">← Back to main page</a></div>
+    </header>
+
+    <p style="color: var(--muted); margin-top: 0; margin-bottom: 18px;">
+      Download model weights and copy the corresponding weight vectors for each SUSS variant. Refer to the paper for detailed information on training setup of different varients.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>SUSSBase</h3>
+        <p>Baseline model trained on ImageNet with self-supervised augmentations.</p>
+        <div class="weights">w = [8.3633e−06, 4.1081e−08, 6.3725e-05, 6.0119e-06]</div>
+        <div class="links">
+          <a href="https://example.com/suss_base.pth" target="_blank" rel="noopener noreferrer">Download checkpoint</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>SUSSPieApp-RH</h3>
+        <p>Finetuned on PieAPP MOS dataset, with dataset-specific distortions and human preference data for ranking loss and weight alignment.</p>
+        <div class="weights">w = [4.268e-06, 4.028e-05, 1.153e-04, 2.717e-08]</div>
+        <div class="links">
+          <a href="https://example.com/suss_pieapp.pth" target="_blank" rel="noopener noreferrer">Download checkpoint</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>SUSSPIPAL-RH</h3>
+        <p>Finetuned on PIPAL dataset, with dataset-specific distortions and human preference data for ranking loss and weight alignment.</p>
+        <div class="weights">w = [4.2111e-07, 4.1700e-07, 1.0702e-05, 8.4151e-08]</div>
+        <div class="links">
+          <a href="https://example.com/suss_pipal.pth" target="_blank" rel="noopener noreferrer">Download checkpoint</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
