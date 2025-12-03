@@ -41,6 +41,67 @@
       padding: 32px 22px 72px;
     }
 
+    .side-nav {
+      position: fixed;
+      top: 140px;
+      left: 20px;
+      width: 200px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .side-nav .nav-title {
+      font-weight: 700;
+      color: var(--muted);
+      padding: 6px 8px;
+    }
+
+    .side-nav a {
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+      border: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    .side-nav a:hover {
+      transform: translateX(2px);
+      border-color: var(--accent);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.08), rgba(47, 122, 79, 0.08));
+    }
+
+    .side-nav a.external {
+      border-color: var(--accent-warm);
+    }
+
+    .side-nav a.external:hover {
+      border-color: var(--accent-warm);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.08), rgba(243, 167, 107, 0.12));
+    }
+
+    .side-nav a.active {
+      border-color: var(--accent);
+      background: linear-gradient(120deg, rgba(31, 91, 58, 0.12), rgba(47, 122, 79, 0.12));
+    }
+
+    @media (max-width: 1100px) {
+      .side-nav {
+        display: none;
+      }
+      .container {
+        padding: 24px 18px 64px;
+      }
+    }
+
     header {
       text-align: center;
       margin-bottom: 28px;
@@ -234,7 +295,19 @@
 </head>
 
 <body>
+  <div class="side-nav">
+    <a href="#abstract">Abstract</a>
+    <a href="#methods">Methods</a>
+    <a href="#usage-examples">Usage</a>
+    <a href="#interpretability">Interpretability</a>
+    <hr style="width:100%; border:0; border-top:1px solid var(--border); margin:6px 0;">
+    <a class="external" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener noreferrer">Paper</a>
+    <a class="external" href="https://github.com/lopasole02/Structured-Uncertainty-Similarity-Score" target="_blank" rel="noopener noreferrer">Code</a>
+    <a class="external" href="checkpoints.html">Checkpoints</a>
+  </div>
+
   <div class="container">
+
     <header>
       <h1>Structured Uncertainty Similarity Score (SUSS): Learning a Probabilistic,
 Interpretable, Perceptual Metric Between Images</h1>
@@ -249,7 +322,7 @@ Interpretable, Perceptual Metric Between Images</h1>
     <!-- buttons -->
     <div class="button-row">
       <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener noreferrer">Paper</a>
-      <a href="https://github.com/lopasole02/SUPNMetric" target="_blank" rel="noopener noreferrer">Code</a>
+      <a href="https://github.com/lopasole02/Structured-Uncertainty-Similarity-Score" target="_blank" rel="noopener noreferrer">Code</a>
       <a href="checkpoints.html">Checkpoints</a>
       <a href="#usage-examples">Usage Examples</a>
     </div>
@@ -453,4 +526,27 @@ loss.backward()</code></pre>
     </footer>
   </div>
 </body>
+<script>
+  // Highlight current section in side navigation
+  const navLinks = Array.from(document.querySelectorAll('.side-nav a')).filter(a => a.hash);
+  const sections = navLinks
+    .map(link => document.querySelector(link.hash))
+    .filter(Boolean);
+
+  const onScroll = () => {
+    const scrollPos = window.scrollY + 140; // offset to account for header spacing
+    let activeId = null;
+    for (const section of sections) {
+      if (section.offsetTop <= scrollPos) {
+        activeId = section.id;
+      }
+    }
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.hash === `#${activeId}`);
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
 </html>
